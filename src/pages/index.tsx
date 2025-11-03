@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useState, forwardRef, useEffect } from "react";
+import { useState, forwardRef, useEffect } from "react";
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import { GenerateIndictmentBody } from "./api/generateIndictment";
@@ -12,8 +12,6 @@ import {
   Footer,
   Modal,
 } from "rsuite";
-import { PrependParameters } from "rsuite/esm/@types/utils";
-import { TypeAttributes } from "rsuite/esm/@types/common";
 import * as ackeeTracker from "ackee-tracker";
 import EXAMPLE from "../../example";
 
@@ -26,6 +24,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, any>((props, ref) => (
     className={styles.textarea}
   />
 ));
+Textarea.displayName = "Textarea";
 
 const SPONSORS_LIST = ["yinali***", "**华", "Z*d", "*泉", "阿*y", "*°", "Sun*"];
 
@@ -87,7 +86,7 @@ export default function Home() {
     }
   }, []);
 
-  const MyMessage = (content: string, type: TypeAttributes.Status) => {
+  const MyMessage = (content: string, type: "success" | "warning" | "error" | "info") => {
     return (
       <Message showIcon type={type}>
         {content}
@@ -156,17 +155,11 @@ export default function Home() {
     setAppeal("");
   };
 
-  const factChange: PrependParameters<
-    ChangeEventHandler<HTMLInputElement>,
-    [value: string]
-  > = (value, e) => {
+  const factChange = (value: string) => {
     setFact(value);
   };
 
-  const appealChange: PrependParameters<
-    ChangeEventHandler<HTMLInputElement>,
-    [value: string]
-  > = (value, e) => {
+  const appealChange = (value: string) => {
     setAppeal(value);
   };
 
@@ -175,10 +168,7 @@ export default function Home() {
     setAppeal(appeal);
   };
 
-  const indictmentChange: PrependParameters<
-    ChangeEventHandler<HTMLInputElement>,
-    [value: string]
-  > = (value, e) => {
+  const indictmentChange = (value: string) => {
     setIndictment(value);
   };
 
